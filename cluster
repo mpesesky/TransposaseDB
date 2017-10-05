@@ -1,0 +1,2 @@
+clustalo -i $1.faa -o $1.stockholm --outfmt=st --threads=16
+
