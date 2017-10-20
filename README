@@ -6,17 +6,17 @@ Instructions for building the custom transposase HMM database from the NCBI RefS
 
 3) Remove seqeunce fragments with the command `python fasta_tools.py -t 115 -f transposases.faa -o transposases.115.faa`
 
-3) Cluster the sequences with the Clustal Omega command `clustalo -i transposases.115.faa -o transposases.fasta --outfmt=fa --threads=16`
+4) Cluster the sequences with the Clustal Omega command `clustalo -i transposases.115.faa -o transposases.fasta --outfmt=fa --threads=16`
 
-4) Calculate a maximum likelihood tree with RAxML command `raxmlHPC-PTHREADS-SSE3 -s transposases.fasta -T 14 -n transposases -m PROTGAMMAAUTO -p 22222`
+5) Calculate a maximum likelihood tree with RAxML command `raxmlHPC-PTHREADS-SSE3 -s transposases.fasta -T 14 -n transposases -m PROTGAMMAAUTO -p 22222`
 
-5) At this point we manually annotated clades from the tree, and placed the protein names in tab-delimited groups (starting with the transposase family name), with different families separated by a newline in a file called transposase_clusters.txt.
+6) At this point we manually annotated clades from the tree, and placed the protein names in tab-delimited groups (starting with the transposase family name), with different families separated by a newline in a file called transposase_clusters.txt.
 
-6) Extract protein fasta files for each transposase family using the command `python cluster_proteins.py`
+7) Extract protein fasta files for each transposase family using the command `python cluster_proteins.py`
 
-7) Each transposase family file was aligned using `bash cluster <filename>` (the 'cluster' script contains a Clustal Omega command)
+8) Each transposase family file was aligned using `bash cluster <filename>` (the 'cluster' script contains a Clustal Omega command)
 
-8) Each multiple seqeunce alignemnt was converted into an HMM database using `bash build <filename>` (the 'build' script contains a HMMER command)
+9) Each multiple seqeunce alignemnt was converted into an HMM database using `bash build <filename>` (the 'build' script contains a HMMER command)
 
-9) The resulting HMM databases were concatenated into a single database usign the command `cat *.hmm > PlasmidTransposases.hmm`
+10) The resulting HMM databases were concatenated into a single database usign the command `cat *.hmm > PlasmidTransposases.hmm`
 
