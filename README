@@ -1,14 +1,16 @@
 Instructions for building the custom transposase HMM database from the NCBI RefSeq plasmid database.
 
-1) Download and concatenate the NCBI plasmid data as described in MosaicAnalysisScripts/README
+1) Download and concatenate the NCBI plasmid data as described in MosaicPlasmids/README
 
-2) Collect probable transposase sequences using `python collect_with_annotation.py -o transposases.faa ncbi_plasmids.faa 'transpo'
+2) Collect probable transposase sequences using `python collect_with_annotation.py -o transposases.faa ncbi_plasmid.faa 'transpos'`
 
-3) Cluster the sequences with the Clustal Omega command `clustalo -i transposases.faa -o transposases.fasta --outfmt=fa --threads=16`
+3) Remove seqeunce fragments with the command `python fasta_tools.py -t 115 -f transposases.faa -o transposases.115.faa`
+
+3) Cluster the sequences with the Clustal Omega command `clustalo -i transposases.115.faa -o transposases.fasta --outfmt=fa --threads=16`
 
 4) Calculate a maximum likelihood tree with RAxML command `raxmlHPC-PTHREADS-SSE3 -s transposases.fasta -T 14 -n transposases -m PROTGAMMAAUTO -p 22222`
 
-5) At this point we manually annotated clades from the tree, and placed the protein names in tab-delimited groups (starting with the transposase family name), with different families separated by a newline.
+5) At this point we manually annotated clades from the tree, and placed the protein names in tab-delimited groups (starting with the transposase family name), with different families separated by a newline in a file called transposase_clusters.txt.
 
 6) Extract protein fasta files for each transposase family using the command `python cluster_proteins.py`
 

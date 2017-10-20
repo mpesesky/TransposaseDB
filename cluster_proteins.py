@@ -1,6 +1,6 @@
 import Fasta_one_line as fol
 
-infile = open("medium_clusters.txt", 'r')
+infile = open("transposase_clusters.txt", 'r')
 fasta = fol.blast_dict("/work/mpesesky/Plasmids/NCBI_Plasmids/taxonAnalysis/transposases.faa")
 
 used_families = []
